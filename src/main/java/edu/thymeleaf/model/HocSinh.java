@@ -35,6 +35,9 @@ public class HocSinh {
 	
 	@Transient
 	private String tenLop;
+	
+	@Transient
+	private Diem diemMH = new Diem();
 
 	public HocSinh(String maHS, String maLH, String ho, String ten, String gioiTinh, Date ngaySinh, String diaChi,
 			String tenLop) {
@@ -126,6 +129,14 @@ public class HocSinh {
 
 	public void setTenLop(String tenLop) {
 		this.tenLop = tenLop;
+	}
+
+	public Diem getDiemMH() {
+		return diemMH;
+	}
+
+	public void setDiemMH(Diem diemMH) {
+		this.diemMH = diemMH;
 	}
 	
 }

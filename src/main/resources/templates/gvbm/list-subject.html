@@ -67,7 +67,7 @@
 		      	</a>
 	      	</li>
 	      	<li>
-		      	<a class="app-menu__item" th:href="@{#}">
+		      	<a class="app-menu__item" th:href="@{/gvbm/thongtincanhan}">
 		      		<i class='app-menu__icon bx bx-detail'></i>
 		      		<span class="app-menu__label">Thông tin cá nhân</span>
 		      	</a>
@@ -140,7 +140,7 @@
 	                                    	<a th:href="@{/gvbm/danhsachlop/{id}(id=*{maLH})}">Xem</a>
 	                                    </td>
 	                                    <td>
-	                                    	<a th:href="@{#}">Nhập</a>
+	                                    	<a th:href="@{/gvbm/nhapdiem?mapc={mapc}&malh={malh}&mamh={mamh}(mapc=*{maPC}, malh=*{maLH}, mamh=*{maMH})}">Nhập</a>
 	                                    </td>
 	                                </tr>
                                 </div>

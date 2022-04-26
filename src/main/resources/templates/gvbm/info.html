@@ -84,7 +84,7 @@
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b style="text-transform: uppercase;">Danh sách <b th:text="${tenLH}"></b></b></a></li>
+                <li class="breadcrumb-item active"><a href="#"><b>Thông tin cá nhân <b th:text="${tenLH}"></b></b></a></li>
             </ul>
             <div id="clock"></div>
         </div>
@@ -122,26 +122,32 @@
                             <thead>
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
-                                    <th>Mã học sinh</th>
+                                    <th>Mã giáo viên</th>
                                     <th>Họ</th>
                                     <th>Tên</th>
                                     <th>Giới tính</th>
                                     <th>Ngày sinh</th>
                                     <th>Địa chỉ</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Email</th>
+                                    <th>Sửa</th>
                                 </tr>
                             </thead>
-                            <tbody th:if="${list != null && !list.empty}">
-                            	<div th:each="hocSinh: ${list}">
-	                                <tr th:object="${hocSinh}">
+                            <tbody th:object="${#session.getAttribute('userLogin')}">
+	                                <tr>
 	                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
-	                                    <td th:text=*{maHS}></td>
+	                                    <td th:text=*{maGV}></td>
 	                                    <td th:text=*{ho}></td>
 	                                    <td th:text=*{ten}></td>
 	                                    <td th:text=*{gioiTinh}></td>
 	                                    <td th:text=*{ngaySinh}></td>
 	                                    <td th:text=*{diaChi}></td>
+	                                    <td th:text=*{sdt}></td>
+	                                    <td th:text=*{email}></td>
+	                                    <td>
+	                                    	<a th:href="@{#}">Sửa</a>
+	                                    </td>
 	                                </tr>
-                                </div>
                             </tbody>
                         </table>
                     </div>

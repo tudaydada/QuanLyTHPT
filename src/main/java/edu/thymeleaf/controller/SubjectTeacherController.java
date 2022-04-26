@@ -9,10 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.thymeleaf.model.GiaoVien;
 import edu.thymeleaf.model.HocSinh;
 import edu.thymeleaf.model.PhanCong;
+import edu.thymeleaf.service.DiemService;
 import edu.thymeleaf.service.HocKyService;
 import edu.thymeleaf.service.HocSinhService;
 import edu.thymeleaf.service.LopService;
@@ -31,9 +34,11 @@ public class SubjectTeacherController {
 	private HocKyService hocKyService;
 	@Autowired
 	private HocSinhService hocSinhService;
+	@Autowired
+	private DiemService diemService;
 	
 	@RequestMapping(value = { "/gvbm/danhsachday" })
-	public String index(Model model,
+	public String danhSachMonDay(Model model,
 		HttpSession session) {
 		GiaoVien giaoVien = (GiaoVien) session.getAttribute("userLogin");
 		List<PhanCong> list = phanCongService.listByMaGV(giaoVien.getMaGV());
@@ -51,8 +56,71 @@ public class SubjectTeacherController {
 		return "gvbm/list-subject";
 	}
 	
+	@RequestMapping(value = { "gvbm/nhapdiem" })
+	public String suaDiem(Model model,
+		HttpSession session,
+		@RequestParam("mapc") String maPC,
+		@RequestParam("malh") String maLH,
+		@RequestParam("mamh") String maMH) {
+		List<HocSinh> list = hocSinhService.listByMaLH(maLH);
+		
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setDiemMH(diemService.getDiemByMaHSAndMaPC(list.get(i).getMaHS(), maPC));
+			list.get(i).getDiemMH().getDiemHe1();
+		}
+		
+		model.addAttribute("list", list);
+		model.addAttribute("maPC", maPC);
+		model.addAttribute("maLH", maLH);
+		model.addAttribute("maMH", maMH);
+		model.addAttribute("tenLH", lopService.getTenLHByMaLH(maLH));
+		model.addAttribute("tenMH", monHocService.getTenByMaMH(maMH));
+
+		return "gvbm/input-scores";
+	}
+	
+	@RequestMapping(value = { "gvbm/suadiemhocsinh" }, method = RequestMethod.POST)
+	public String suaDiemHocSinh(Model model,
+		HttpSession session,
+		@RequestParam("mapc") String maPC,
+		@RequestParam("malh") String maLH,
+		@RequestParam("mamh") String maMH,
+		@RequestParam("mahs") String maHS,
+		@RequestParam("diemhe1") String diemHe1,
+		@RequestParam("diemhe2") String diemHe2,
+		@RequestParam("diemhe3") String diemHe3) {
+		
+		System.out.println(maPC + " " + maLH + " " + maMH);
+		
+		String maDiem = diemService.getDiemByMaHSAndMaPC(maHS, maPC).getMaDiem();
+		
+		diemService.updateDiem(maDiem, Float.parseFloat(diemHe1), Float.parseFloat(diemHe2), Float.parseFloat(diemHe3));
+		
+		List<HocSinh> list = hocSinhService.listByMaLH(maLH);
+		
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setDiemMH(diemService.getDiemByMaHSAndMaPC(list.get(i).getMaHS(), maPC));
+			list.get(i).getDiemMH().getDiemHe1();
+		}
+		
+		model.addAttribute("list", list);
+		model.addAttribute("maPC", maPC);
+		model.addAttribute("maLH", maLH);
+		model.addAttribute("maMH", maMH);
+		model.addAttribute("tenLH", lopService.getTenLHByMaLH(maLH));
+		model.addAttribute("tenMH", monHocService.getTenByMaMH(maMH));
+
+		return "gvbm/input-scores";
+	}
+	
+	@RequestMapping(value = { "/gvbm/thongtincanhan" })
+	public String thongTin(Model model) {
+		
+		return "gvbm/info";
+	}
+	
 	@RequestMapping(value = { "/gvbm/danhsachlop/{id}" })
-	public String index(Model model,
+	public String danhSachLop(Model model,
 		HttpSession session,
 		@PathVariable("id") String maLH) {
 		System.out.println(maLH);
