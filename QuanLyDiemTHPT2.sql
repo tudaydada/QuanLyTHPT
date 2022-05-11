@@ -1,5 +1,5 @@
 ------------ Nguyễn Văn Thiện ----------------
-DROP DATABASE IF EXISTS QuanLyDiemTHPT ;
+DROP DATABASE IF EXISTS QuanLyDiemTHPT;
 
 CREATE DATABASE QuanLyDiemTHPT;
 
@@ -80,13 +80,14 @@ CREATE TABLE PHANCONGGIANGDAY (
 );
 
 CREATE TABLE DIEM (
+	MaDiem VARCHAR(10),
     MaHS VARCHAR(10),
 	MaPC VARCHAR(10),
 	DiemHe1 FLOAT,
 	DiemHe2 FLOAT,
 	DiemHe3 FLOAT,
 	GhiChu TEXT,
-	PRIMARY KEY (MaHS, MaPC)
+	PRIMARY KEY (MaDiem)
 );
 
 ALTER TABLE LOPHOC ADD FOREIGN KEY(MaKH) REFERENCES KHOIHOC(MaKH);
@@ -179,8 +180,8 @@ VALUES
 INSERT INTO PHANCONGGIANGDAY (MaPC, MaGV, MaLH, MaHK, MaMH, GhiChu)
 VALUES
 	('PC0001', 'GV005', 'LH001', 'HK001', 'MH07', ''),
-	('PC0002', 'GV003', 'LH002', 'HK001', 'MH04', ''),
-	('PC0003', 'GV007', 'LH003', 'HK001', 'MH05', ''),
+	('PC0002', 'GV005', 'LH002', 'HK001', 'MH04', ''),
+	('PC0003', 'GV005', 'LH003', 'HK001', 'MH05', ''),
 	('PC0004', 'GV001', 'LH004', 'HK001', 'MH01', ''),
 	('PC0005', 'GV002', 'LH005', 'HK001', 'MH02', ''),
 	('PC0006', 'GV004', 'LH006', 'HK001', 'MH03', ''),
@@ -194,187 +195,59 @@ VALUES
 	('PC0014', 'GV015', 'LH014', 'HK001', 'MH06', ''),
 	('PC0015', 'GV011', 'LH015', 'HK001', 'MH09', '');
 
-INSERT INTO DIEM (MaHS, MaPC, DiemHe1, DiemHe2, DiemHe3, GhiChu)
+INSERT INTO DIEM (MaDiem, MaHS, MaPC, DiemHe1, DiemHe2, DiemHe3, GhiChu)
 VALUES
-	('HS0001', 'PC0001', 8.0, 6.5, 7.7, ''),
-	('HS0002', 'PC0001', 4.5, 5.9, 6.5, ''),
-	('HS0003', 'PC0002', 6.0, 7.5, 7.0, ''),
-	('HS0004', 'PC0002', 9.0, 6.5, 8.5, ''),
-	('HS0005', 'PC0003', 5.6, 4.5, 7.0, ''),
-	('HS0006', 'PC0003', 8.0, 6.0, 7.0, ''),
-	('HS0007', 'PC0004', 3.4, 7.0, 5.5, ''),
-	('HS0008', 'PC0004', 8.0, 6.5, 7.7, ''),
-	('HS0009', 'PC0005', 8.0, 6.5, 7.7, ''),
-	('HS0010', 'PC0005', 8.0, 6.5, 7.7, ''),
-	('HS0001', 'PC0006', 8.0, 6.5, 7.7, ''),
-	('HS0002', 'PC0006', 4.5, 5.9, 6.5, ''),
-	('HS0003', 'PC0007', 6.0, 7.5, 7.0, ''),
-	('HS0004', 'PC0007', 9.0, 6.5, 8.5, ''),
-	('HS0005', 'PC0008', 5.6, 4.5, 7.0, ''),
-	('HS0006', 'PC0008', 8.0, 6.0, 7.0, ''),
-	('HS0007', 'PC0009', 3.4, 7.0, 5.5, ''),
-	('HS0008', 'PC0009', 8.0, 6.5, 7.7, ''),
-	('HS0009', 'PC0010', 8.0, 6.5, 7.7, ''),
-	('HS0010', 'PC0010', 8.0, 6.5, 7.7, ''),
-	('HS0001', 'PC0011', 8.0, 6.5, 7.7, ''),
-	('HS0002', 'PC0011', 4.5, 5.9, 6.5, ''),
-	('HS0003', 'PC0012', 6.0, 7.5, 7.0, ''),
-	('HS0004', 'PC0012', 9.0, 6.5, 8.5, ''),
-	('HS0005', 'PC0013', 5.6, 4.5, 7.0, ''),
-	('HS0006', 'PC0013', 8.0, 6.0, 7.0, ''),
-	('HS0007', 'PC0014', 3.4, 7.0, 5.5, ''),
-	('HS0008', 'PC0014', 8.0, 6.5, 7.7, ''),
-	('HS0009', 'PC0015', 8.0, 6.5, 7.7, ''),
-	('HS0010', 'PC0015', 8.0, 6.5, 7.7, '');
+	('D0001', 'HS0001', 'PC0001', 8.0, 6.5, 7.7, ''),
+	('D0002', 'HS0002', 'PC0001', 4.5, 5.9, 6.5, ''),
+	('D0003', 'HS0003', 'PC0002', 6.0, 7.5, 7.0, ''),
+	('D0004', 'HS0004', 'PC0002', 9.0, 6.5, 8.5, ''),
+	('D0005', 'HS0005', 'PC0003', 5.6, 4.5, 7.0, ''),
+	('D0006', 'HS0006', 'PC0003', 8.0, 6.0, 7.0, ''),
+	('D0007', 'HS0007', 'PC0004', 3.4, 7.0, 5.5, ''),
+	('D0008', 'HS0008', 'PC0004', 8.0, 6.5, 7.7, ''),
+	('D0009', 'HS0009', 'PC0005', 8.0, 6.5, 7.7, ''),
+	('D0010', 'HS0010', 'PC0005', 8.0, 6.5, 7.7, ''),
+	('D0011', 'HS0001', 'PC0006', 8.0, 6.5, 7.7, ''),
+	('D0012', 'HS0002', 'PC0006', 4.5, 5.9, 6.5, ''),
+	('D0013', 'HS0003', 'PC0007', 6.0, 7.5, 7.0, ''),
+	('D0014', 'HS0004', 'PC0007', 9.0, 6.5, 8.5, ''),
+	('D0015', 'HS0005', 'PC0008', 5.6, 4.5, 7.0, ''),
+	('D0016', 'HS0006', 'PC0008', 8.0, 6.0, 7.0, ''),
+	('D0017', 'HS0007', 'PC0009', 3.4, 7.0, 5.5, ''),
+	('D0018', 'HS0008', 'PC0009', 8.0, 6.5, 7.7, ''),
+	('D0019', 'HS0009', 'PC0010', 8.0, 6.5, 7.7, ''),
+	('D0020', 'HS0010', 'PC0010', 8.0, 6.5, 7.7, ''),
+	('D0021', 'HS0001', 'PC0011', 8.0, 6.5, 7.7, ''),
+	('D0022', 'HS0002', 'PC0011', 4.5, 5.9, 6.5, ''),
+	('D0023', 'HS0003', 'PC0012', 6.0, 7.5, 7.0, ''),
+	('D0024', 'HS0004', 'PC0012', 9.0, 6.5, 8.5, ''),
+	('D0025', 'HS0005', 'PC0013', 5.6, 4.5, 7.0, ''),
+	('D0026', 'HS0006', 'PC0013', 8.0, 6.0, 7.0, ''),
+	('D0027', 'HS0007', 'PC0014', 3.4, 7.0, 5.5, ''),
+	('D0028', 'HS0008', 'PC0014', 8.0, 6.5, 7.7, ''),
+	('D0029', 'HS0009', 'PC0015', 8.0, 6.5, 7.7, ''),
+	('D0030', 'HS0010', 'PC0015', 8.0, 6.5, 7.7, '');
+    
+update diem
+set diemhe1 = 9, diemhe2 = 10, diemhe3 = 8
+where madiem = 'D0030';
 
 ------------ Lê Đức Thắng ----------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_good_student`()
+	SELECT  *,((diemHe1+diemHe2*2+diemHe3*3)/6) as tongdiem FROM diem 
+    WHERE ((diemHe1+diemHe2*2+diemHe3*3)/6) > 7.9 
+    GROUP BY MaHS  
+    ORDER BY tongdiem DESC $$
+DELIMITER ;
 
-create proc test_insert_diem_h1 (
-	@mahs char(10),
-	@mapc char(10),
-	@diemh1 float,
-	@ghichu nvarchar(150)
-)
-as
-	begin
-		if (@mahs not in (select MaHS from DIEM) and @mapc not in (select mapc from diem))
-			if (@mahs in (select mahs from hocsinh) and @mapc in (select mapc from phanconggiangday))
-				begin
-					declare diemhe1 int = (select diemhe1 from diem where mahs=@mahs and mapc=@mapc)
-					if (diemhe1 > 1)
-						begin
-							select @diemhe1 = (@diemhe1+@diemh1)/2
-						end
-					else
-						begin
-							select @diemhe1=@diemh1
-						end
-					update diem set diemhe1 = @diemhe1,ghichu = concat(ghichu,''+@ghichu) where mahs=@mahs and mapc=@mapc
-					return 1	
-				end
-		else
-			return 0
-	end
-
-create proc test_insert_diem_h2(
-	@mahs char(10),
-	@mapc char(10),
-	@diemh2 float,
-	@ghichu nvarchar(150)
-)
-as
-	begin
-		if(@mahs not in (select mahs from diem) and @mapc not in (select mapc from diem))
-			if(@mahs in (select mahs from hocsinh) and @mapc in (select mapc from phanconggiangday))
-				begin
-					declare diemhe2 int = (select diemhe2 from diem where mahs=@mahs and mapc=@mapc)
-					if(diemhe2>1)
-						begin
-							select @diemhe2 = (@diemhe2+@diemh2*2)/3
-						end
-					else
-						begin
-							select @diemhe2=@diemh2
-						end
-					update diem set diemhe2 = @diemhe2,ghichu = concat(ghichu,''+@ghichu) where mahs=@mahs and mapc=@mapc
-					return 1	
-				end
-		else
-			return 0
-	end
-
-create proc test_insert_diem_h3(
-	@mahs char(10),
-	@mapc char(10),
-	@diemh3 float,
-	@ghichu nvarchar(150)
-)
-as
-	begin
-		if(@mahs not in (select mahs from diem) and @mapc not in (select mapc from diem))
-			if(@mahs in (select mahs from hocsinh) and @mapc in (select mapc from phanconggiangday))
-				begin
-					declare diemhe3 int = (select diemhe3 from diem where mahs=@mahs and mapc=@mapc)
-					if(diemhe3>1)
-						begin
-							select @diemhe3 = (@diemhe3+@diemh3*2)/3
-						end
-					else
-						begin
-							select @diemhe3=@diemh3
-						end
-					update diem set diemhe3 = @diemhe3,ghichu = concat(ghichu,''+@ghichu) where mahs=@mahs and mapc=@mapc
-					return 1	
-				end
-		else
-			return 0
-	end
-
------------- Thái Văn Thiện ----------------
-
--- Tạo 1 function tính điểm trung bình của một học sinh
-CREATE FUNCTION functrungbinhdiem(@maHS varchar(10))
-RETURNS float
-AS
-BEGIN
-	DECLARE @trungbinh float
-
-	SELECT @trungbinh = (diemhe1 + diemhe2*2 + diemhe3*3)/6.0
-	FROM DIEM
-	WHERE MaHS = @maHS
-
-	RETURN @trungbinh
-END
-GO
-
-drop function functrungbinhdiem 
-
-select *, dbo.functrungbinhdiem(MaHS) as ĐTB from HOCSINH
-
--- Tạo 1 function kiểm tra xem học sinh đạt loại gì
-CREATE FUNCTION funckiemtraloaihocsinh(@maHS varchar(10))
-RETURNS NVARCHAR(50)
-AS
-BEGIN
-	DECLARE @trungbinh INT, @loaihocsinh NVARCHAR(50)
-	SET @trungbinh = dbo.functrungbinhdiem(@maHS)
-
-	IF @trungbinh >= 8.0
-		SET @loaihocsinh = N'Giỏi'
-	ELSE
-		IF @trungbinh >= 6.5
-			SET @loaihocsinh = N'Khá'
-		ELSE 
-			IF @trungbinh >= 6.5
-				SET @loaihocsinh = N'Trung bình'
-			ELSE 
-				SET @loaihocsinh = N'Yếu'
-
-	RETURN @loaihocsinh
-END
-GO
-
-drop function funckiemtraloaihocsinh
-
-select *, dbo.funckiemtraloaihocsinh(MaHS) as 'Xếp loại' from HOCSINH
-
--- Tạo 1 function cho biết số lượng học sinh của một lớp học
-CREATE FUNCTION funcsohocsinh(@maLH varchar(10))
-RETURNS int
-AS
-BEGIN
-	DECLARE @sohocsinh int
-
-	SELECT @sohocsinh = sum(MaHS) FROM HOCSINH
-	WHERE MaLH = @maLH
-
-	RETURN @sohocsinh
-END
-GO
-
-drop function funcsohocsinh
-
-select *, dbo.funcsohocsinh(MaLH) as 'Số học sinh' from LOPHOC
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_top_3_student_score`()
+SELECT  * FROM diem 
+GROUP BY MaHS 
+ORDER BY DiemHe3 DESC, DiemHe2 DESC, DiemHe1 DESC 
+LIMIT 3 $$
+DELIMITER ;
 
 ------------ Nguyễn Phan Minh Thư ----------------
 -- Tạo thủ tục trả về bảng chứa danh sách phân công của giáo viên bộ môn nào đó
@@ -403,6 +276,108 @@ DELIMITER ;
 
 call DanhSachLop('LH001');
 
+-- Tạo thủ tục trả về danh sách điểm được nhập gần đây của một giáo viên nào đó
+DELIMITER //
+drop procedure if exists DanhSachDiem //
+
+create procedure DanhSachDiem(id varchar(10))
+begin
+	select d.* from diem d
+    inner join phanconggiangday pcgd on pcgd.MaPC = d.MaPC
+    where MaGV = id
+    order by MaDiem desc
+    limit 10;
+    
+end //
+DELIMITER ;
+
+call DanhSachDiem('GV005');
+
+-- Tạo hàm trả về số lượng học phần mà giáo viên nào đó đã phụ trách
+DELIMITER //
+drop function if exists TongSoHP //
+
+create function TongSoHP(id varchar(10))
+returns int
+DETERMINISTIC
+begin
+	declare tong int;
+    set tong = 0;
+    
+	select count(MaPC) into tong from phanconggiangday pcgd
+ 	where MaGV = id;
+    
+    return tong;
+end //
+
+DELIMITER ;
+
+select TongSoHP('GV005');
+
+-- Tạo hàm trả về số lượng học phần mà giáo viên nào đó đang phụ trách trong
+-- học kỳ hiện tại
+DELIMITER //
+drop function if exists TongSoHPDangPT //
+
+create function TongSoHPDangPT(id varchar(10))
+returns int
+DETERMINISTIC
+begin
+	declare tong int;
+    set tong = 0;
+    
+	select count(MaPC) into tong from phanconggiangday pcgd
+    inner join hocky hk on hk.MaHK = pcgd.MaHK
+ 	where MaGV = id and hk.ThoiGianBatDau <= curdate() and hk.ThoiGianKetThuc >= curdate();
+    
+    return tong;
+end //
+
+DELIMITER ;
+
+select TongSoHPDangPT('GV005');
+
+-- Tạo hàm trả về tổng số môn học mà giáo viên nào đó đã dạy
+DELIMITER //
+drop function if exists TongSoMH //
+
+create function TongSoMH(id varchar(10))
+returns int
+DETERMINISTIC
+begin
+	declare tong int;
+    set tong = 0;
+    
+	select count(distinct MaMH) into tong from phanconggiangday pcgd
+ 	where MaGV = id;
+    
+    return tong;
+end //
+
+DELIMITER ;
+
+select TongSoMH('GV001');
+
+-- Tạo hàm trả về tổng số học sinh của một lớp
+DELIMITER //
+drop function if exists TongHS //
+
+create function TongHS(id varchar(10))
+returns int
+DETERMINISTIC
+begin
+	declare tong int;
+    set tong = 0;
+    
+	select count(distinct MaHS) into tong from hocsinh hs
+ 	where MaLH = id;
+    
+    return tong;
+end //
+
+DELIMITER ;
+
+/*
 -- Tạo trigger cho sự kiện thêm mới kì học, với điều kiện thời gian bắt đầu
 -- và kết thúc của kì học phải nằm trong thời gian bắt đầu và kết thúc
 -- của năm học.
@@ -480,3 +455,4 @@ where MaHS = 'HS0001' and MaPC = 'PC0001'
 
 select * from DIEM
 where MaHS = 'HS0001'
+*/

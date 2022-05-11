@@ -38,4 +38,10 @@ public class GiaoVienService {
 		
 		return null;
 	}
+	
+	public List<GiaoVien> getAll() {
+		List<GiaoVien> list = giaoVienRepository.findAll();
+		
+		return list;
+	}
 }

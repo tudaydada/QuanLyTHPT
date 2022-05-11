@@ -1,13 +1,22 @@
 package edu.thymeleaf.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "diem")
-public class Diem {
+@IdClass(Diem.class)
+@NamedStoredProcedureQuery(name = "get_top_3_student_score",procedureName = "get_top_3_student_score",resultClasses = Diem.class)
+@NamedStoredProcedureQuery(name = "get_good_student",procedureName = "get_good_student",resultClasses = Diem.class)
+@NamedStoredProcedureQuery(name = "statistic_diemHe1",procedureName = "statistic_diemHe1")
+
+public class Diem implements Serializable {
 	@Id
 	@Column(name = "madiem")
 	private String maDiem;

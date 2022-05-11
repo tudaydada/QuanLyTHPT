@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Trang chủ | Quản trị viên</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- Main CSS-->
+	<link rel="stylesheet" type="text/css" th:href="@{/home/css/main.css}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+	<!-- or -->
+	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+	
+	<!-- Font-icon css-->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+</head>
+
+<body onload="time()" class="app sidebar-mini rtl">
+	<!-- Navbar-->
+  	<header class="app-header">
+    	<!-- Navbar Right Menu-->
+    	<ul class="app-nav">
+			<!-- User Menu-->
+    		<li>
+    			<a class="app-nav__item" th:href="@{/logout}">
+    				<i class='bx bx-log-out bx-rotate-180'></i> 
+    			</a>
+    		</li>
+    	</ul>
+  	</header>
+  	<!-- Sidebar menu-->
+  	<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+  	<aside class="app-sidebar">
+    	<div class="app-sidebar__user">
+    		<img class="app-sidebar__user-avatar" th:src="@{/images/hay.jpg}" width="50px" alt="User Image">
+      		<div>
+        		<p class="app-sidebar__user-name" th:object="${#session.getAttribute('userLogin')}">
+        			<b th:text="*{ho}"></b>
+        			<b th:text="*{ten}"></b>
+        		</p>
+        		<p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+      		</div>
+    	</div>
+    	<hr>
+	    <ul class="app-menu">
+	      	<li>
+		      	<a class="app-menu__item active" th:href="@{/admin/home}">
+		      		<i class='app-menu__icon bx bxs-home'></i>
+		      		<span class="app-menu__label">Trang chủ Admin</span>
+		      	</a>
+	     	</li>
+	      	<li>
+		      	<a class="app-menu__item " th:href="@{#}">
+		      		<i class='app-menu__icon bx bx-list-ul'></i> 
+		      		<span class="app-menu__label">Quản lý năm học</span>
+		    	</a>
+		  	</li>
+	      	<li>
+		      	<a class="app-menu__item" th:href="@{#}">
+		      		<i class='app-menu__icon bx bx-pencil'></i>
+		      		<span class="app-menu__label">Quản lý lớp</span>
+		      	</a>
+	      	</li>
+	      	<li>
+		      	<a class="app-menu__item" th:href="@{#}">
+		      		<i class='app-menu__icon bx bx-pencil'></i>
+		      		<span class="app-menu__label">Quản lý học sinh</span>
+		      	</a>
+	      	</li>
+	      	<li>
+		      	<a class="app-menu__item" th:href="@{#}">
+		      		<i class='app-menu__icon bx bx-detail'></i>
+		      		<span class="app-menu__label">Quản lý giáo viên</span>
+		      	</a>
+	      	</li>
+	      	<li>
+		      	<a class="app-menu__item" th:href="@{#}">
+		      		<i class='app-menu__icon bx bx-detail'></i>
+		      		<span class="app-menu__label">Quản lý môn học</span>
+		      	</a>
+	      	</li>
+	      	<li>
+		      	<a class="app-menu__item" th:href="@{/index}">
+		      		<i class='app-menu__icon bx bx-log-out'></i>
+		      		<span class="app-menu__label">Đăng xuất</span>
+		      	</a>
+	    	</li>
+	    </ul>
+  	</aside>
+  	<!-- Main contain -->
+  	<main class="app-content">
+    	<div class="row">
+      		<div class="col-md-12">
+        		<div class="app-title">
+          			<ul class="app-breadcrumb breadcrumb">
+            			<li class="breadcrumb-item"><b>Quản trị viên</b></li>
+          			</ul>
+          			<div id="clock"></div>
+        		</div>
+      		</div>
+    	</div>
+    	 <div class="row">
+      		<!-- Left-->
+      		<div class="col-md-12 col-lg-6">
+        		<div class="row">
+       				<!-- col-6-->
+       				<div class="col-md-6">
+        				<div class="widget-small primary coloured-icon">
+        					<i class='icon bx bxs-user-account fa-3x'></i>
+          					<div class="info">
+            					<h4>Tổng giáo viên</h4>
+            					<p><b th:text="${dsGV.size()}"></b></p>
+            					<p class="info-tong">Tổng số giáo viên được quản lý.</p>
+          					</div>
+        				</div>
+      				</div>
+       				<!-- col-6-->
+          			<div class="col-md-6">
+            			<div class="widget-small info coloured-icon">
+            				<i class='icon bx bxs-data fa-3x'></i>
+              				<div class="info">
+                				<h4>Tổng học sinh</h4>
+				                <p><b th:text="${dsHS.size()}"></b></p>
+				                <p class="info-tong">Tổng số học sinh được quản lý.</p>
+              				</div>
+            			</div>
+          			</div>
+          			<div class="col-md-6">
+            			<div class="widget-small info coloured-icon">
+            				<i class='icon bx bxs-data fa-3x'></i>
+              				<div class="info">
+                				<h4>Tổng số lớp</h4>
+				                <p><b th:text="${dsL.size()}"></b></p>
+				                <p class="info-tong">Tổng số học sinh được quản lý.</p>
+              				</div>
+            			</div>
+          			</div>
+          			<div class="col-md-6">
+            			<div class="widget-small info coloured-icon">
+            				<i class='icon bx bxs-data fa-3x'></i>
+              				<div class="info">
+                				<h4>Tổng số phân công</h4>
+				                <p><b th:text="${dsPC.size()}"></b></p>
+				                <p class="info-tong">Tổng số học sinh được quản lý.</p>
+              				</div>
+            			</div>
+          			</div>
+           			<!-- col-12-->
+           			<div class="col-md-12">
+            			<div class="tile">
+                			<h3 class="tile-title">Danh sách giáo viên</h3>
+              				<div>
+                				<table class="table table-bordered">
+                  					<thead>
+                    					<tr>
+					                      <th>Mã giáo viên</th>
+					                      <th>Tên giáo viên</th>
+					                      <th>Tổng tiền</th>
+					                      <th>Trạng thái</th>
+                    					</tr>
+                  					</thead>
+                  					<tbody>
+                    					<tr th:each="gv:${dsGV}">
+						                      <td th:text=${gv.maGV}></td>
+						                      <td >
+						                      <b th:text="${gv.ho}"></b><b th:text="${gv.ten}"></b>
+						                      </td>
+						                      <td th:text=${gv.email}></td>
+						                      <td><span th:text="${gv.gioiTinh}"></span></td>
+                    					</tr>
+                  					</tbody>
+                				</table>
+              				</div>
+            			</div>
+           			</div>
+             		<!-- col-12-->
+            		<div class="col-md-12">
+                		<div class="tile">
+                  			<h3 class="tile-title">Danh sách lớp </h3>
+                			<div>
+                  				<table class="table table-hover">
+                    				<thead>
+                      					<tr>
+					                        <th>Mã lớp</th>
+					                        <th>Tên lớp</th>
+					                        <th>Mã khóa học</th>
+					                        <th>Giáo viên chủ nhiệm</th>
+                      					</tr>
+                    				</thead>
+                    				<tbody>
+                      					<tr th:each="lh:${dsL}">
+					                        <td th:text=${lh.maLH}></td>
+					                        <td th:text=${lh.tenLH}></td>
+					                        <td th:text=${lh.maKH}></td>
+					                        <td th:text=${lh.maGVCN}></td>
+					                        
+                      					</tr>
+                      					<tr>
+					                        <td>#219</td>
+					                        <td>Bánh tráng trộn</td>
+					                        <td>30/4/1975</td>
+					                        <td><span class="tag tag-warning">0912376352</span></td>
+                      					</tr>
+                    				</tbody>
+                  				</table>
+                			</div>
+                		</div>
+            		</div>
+        		</div>
+      		</div>
+      		<!--END left-->
+      		
+      		<!-- Right-->
+      		<div class="col-md-12 col-lg-6">
+        		<div class="row">
+        		
+        		<div class="col-md-12">
+            			<div class="tile">
+              				<h3 class="tile-title">Thống kê điểm số</h3>
+              				<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+              				<!-- <div class="embed-responsive embed-responsive-16by9">
+                				<canvas class="embed-responsive-item" id="lineChartDemo"></canvas> 
+                				
+              				</div>-->
+            			</div>
+          			</div>
+          			<div class="col-md-12">
+            			<div class="tile">
+              				<h3 class="tile-title">Danh sách học sinh giỏi</h3>
+              				<div>
+                  				<table class="table table-hover">
+                    				<thead>
+                      					<tr>
+					                        <th>Mã học sinh</th>
+					                        <th>Mã môn học</th>
+					                        <th>Điểm hệ 1</th>
+					                        <th>Điểm hệ 2</th>
+					                        <th>Điểm hệ 3</th>
+                      					</tr>
+                    				</thead>
+                    				<tbody>
+                      					<tr th:each="d:${dsHSG}">
+					                        <td th:text=${d.maHS}></td>
+					                        <td th:text=${d.maPC}></td>
+					                        <td th:text=${d.diemHe1}></td>
+					                        <td th:text=${d.diemHe2}></td>
+					                        <td th:text=${d.diemHe3}></td>
+					                        
+                      					</tr>
+                    				</tbody>
+                  				</table>
+                			</div>
+            			</div>
+          			</div>
+          			<div class="col-md-12">
+            			<div class="tile">
+              				<h3 class="tile-title">Top 3 học sinh đạt điểm cao</h3>
+              				<div>
+                  				<table class="table table-hover">
+                    				<thead>
+                      					<tr>
+					                        <th>Mã học sinh</th>
+					                        <th>Điểm hệ 1</th>
+					                        <th>Điểm hệ 2</th>
+					                        <th>Điểm hệ 3</th>
+                      					</tr>
+                    				</thead>
+                    				<tbody>
+                      					<tr th:each="d:${dsDT3}">
+					                        <td th:text=${d.maHS}></td>
+					                        <td th:text=${d.diemHe1}></td>
+					                        <td th:text=${d.diemHe2}></td>
+					                        <td th:text=${d.diemHe3}></td>
+					                        
+                      					</tr>
+                    				</tbody>
+                  				</table>
+                			</div>
+            			</div>
+          			</div>
+          			<div class="col-md-12">
+            			<div class="tile">
+              				<h3 class="tile-title">Bảng điểm học sinh</h3>
+              				<div>
+                  				<table class="table table-hover">
+                    				<thead>
+                      					<tr>
+					                        <th>Mã học sinh</th>
+					                        <th>Điểm hệ 1</th>
+					                        <th>Điểm hệ 2</th>
+					                        <th>Điểm hệ 3</th>
+                      					</tr>
+                    				</thead>
+                    				<tbody>
+                      					<tr th:each="d:${dsD}">
+					                        <td th:text=${d.maHS}></td>
+					                        <td th:text=${d.diemHe1}></td>
+					                        <td th:text=${d.diemHe2}></td>
+					                        <td th:text=${d.diemHe3}></td>
+					                        
+                      					</tr>
+                    				</tbody>
+                  				</table>
+                			</div>
+              				
+            			</div>
+          			</div>
+        		</div>
+      		</div>
+      		<!--END right-->
+    	</div>
+
+    	<div class="text-center" style="font-size: 13px">
+      		<p><b>
+      			Copyright
+	          	<script type="text/javascript">
+	            	document.write(new Date().getFullYear());
+	          	</script> Phần mềm quản lý điểm trường THPT Đỗ Đăng Tuyển
+        	</b></p>
+    	</div>
+  	</main>
+  	
+  	<script th:src="@{/home/js/jquery-3.2.1.min.js}"></script>
+  	<script th:src="@{/home/js/popper.min.js}"></script>
+  	<script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+  	<script th:src="@{/home/js/bootstrap.min.js}"></script>
+  	<script th:src="@{/home/js/main.js}"></script>
+  	<script th:src="@{/home/js/plugins/pace.min.js}"></script>
+  	<script type="text/javascript" th:src="@{/home/js/plugins/chart.js}"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  	
+  	<script type="text/javascript">
+	    //Thời Gian
+	    function time() {
+	      var today = new Date();
+	      var weekday = new Array(7);
+	      weekday[0] = "Chủ Nhật";
+	      weekday[1] = "Thứ Hai";
+	      weekday[2] = "Thứ Ba";
+	      weekday[3] = "Thứ Tư";
+	      weekday[4] = "Thứ Năm";
+	      weekday[5] = "Thứ Sáu";
+	      weekday[6] = "Thứ Bảy";
+	      var day = weekday[today.getDay()];
+	      var dd = today.getDate();
+	      var mm = today.getMonth() + 1;
+	      var yyyy = today.getFullYear();
+	      var h = today.getHours();
+	      var m = today.getMinutes();
+	      var s = today.getSeconds();
+	      m = checkTime(m);
+	      s = checkTime(s);
+	      nowTime = h + " giờ " + m + " phút " + s + " giây";
+	      if (dd < 10) {
+	        dd = '0' + dd
+	      }
+	      if (mm < 10) {
+	        mm = '0' + mm
+	      }
+	      today = day + ', ' + dd + '/' + mm + '/' + yyyy;
+	      tmp = '<span class="date"> ' + today + ' - ' + nowTime +
+	        '</span>';
+	      document.getElementById("clock").innerHTML = tmp;
+	      clocktime = setTimeout("time()", "1000", "Javascript");
+	
+	      function checkTime(i) {
+	        if (i < 10) {
+	          i = "0" + i;
+	        }
+	        return i;
+	      }
+	    }
+	    
+	    
+	    // chart JS
+	    
+	    
+	    
+  	</script>
+  	<script th:inline="javascript">
+/*<![CDATA[*/
+var xValues = [1,2,3,4,5,6,7,8,9,10];
+var message = /*[[${dsL.size()}]]*/ 'default';
+var data1 = /*[[${dsD.get(0).diemHe1}*10]]*/ 'default';
+var data2 = /*[[${dsD.get(0).diemHe2}*10]]*/ 'default';
+var data3 = /*[[${dsD.get(0).diemHe3}*10]]*/ 'default';
+
+new Chart("myChart", {
+	  type: "line",
+	  data: {
+	    labels: xValues,
+	    datasets: [{
+	      data: [86,114,106,106,107,111,133,221,783,247],
+	      borderColor: "red",
+	      fill: false
+	    },{
+	      data: [16,17,17,19,20,27,40,50,60,70],
+	      borderColor: "green",
+	      fill: false
+	    },{
+	      data: [30,70,200,500,600,40,200,100,20,10],
+	      borderColor: "blue",
+	      fill: false
+	    }]
+	  },
+	  options: {
+	    legend: {display: false}
+	  }
+	});
+    
+    
+
+/*]]>*/
+</script>
+</body>
+
+</html>

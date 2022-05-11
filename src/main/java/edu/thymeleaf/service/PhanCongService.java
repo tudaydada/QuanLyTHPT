@@ -16,5 +16,23 @@ public class PhanCongService {
 	public List<PhanCong> listByMaGV(String maGV) {
 		return phanCongRepository.listDanhSachMon(maGV);
 	}
+
+	public int countTongHPByMaGV(String maGV) {
+		return phanCongRepository.countTongHPByMaGV(maGV);
+	}
+	
+	public int countTongHPDangPTByMaGV(String maGV) {
+		return phanCongRepository.countTongHPDangPTByMaGV(maGV);
+	}
+
+	public int countTongMHByMaGV(String maGV) {
+		return phanCongRepository.countTongMHByMaGV(maGV);
+	}
+	
+	public List<PhanCong> getAll() {
+		List<PhanCong> list = phanCongRepository.findAll();
+		
+		return list;
+	}
 	
 }

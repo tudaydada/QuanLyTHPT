@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.thymeleaf.model.Diem;
 import edu.thymeleaf.model.GiaoVien;
 import edu.thymeleaf.model.HocSinh;
 import edu.thymeleaf.model.PhanCong;
@@ -36,6 +37,24 @@ public class SubjectTeacherController {
 	private HocSinhService hocSinhService;
 	@Autowired
 	private DiemService diemService;
+	
+	@RequestMapping(value = { "/gvbm/home" })
+	public String home(Model model,
+			HttpSession session) {
+		GiaoVien giaoVien = (GiaoVien) session.getAttribute("userLogin");
+		
+		int tongHPPT = phanCongService.countTongHPByMaGV(giaoVien.getMaGV());
+		int tongHPDangPT = phanCongService.countTongHPDangPTByMaGV(giaoVien.getMaGV());
+		int tongMH = phanCongService.countTongMHByMaGV(giaoVien.getMaGV());
+		List<Diem> list = diemService.getListNewByMaGV(giaoVien.getMaGV());
+		
+		model.addAttribute("tongHPPT", tongHPPT);
+		model.addAttribute("tongHPDangPT", tongHPDangPT);
+		model.addAttribute("tongMH", tongMH);
+		model.addAttribute("list", list);
+		
+		return "gvbm/home";
+	}
 	
 	@RequestMapping(value = { "/gvbm/danhsachday" })
 	public String danhSachMonDay(Model model,
@@ -90,8 +109,6 @@ public class SubjectTeacherController {
 		@RequestParam("diemhe2") String diemHe2,
 		@RequestParam("diemhe3") String diemHe3) {
 		
-		System.out.println(maPC + " " + maLH + " " + maMH);
-		
 		String maDiem = diemService.getDiemByMaHSAndMaPC(maHS, maPC).getMaDiem();
 		
 		diemService.updateDiem(maDiem, Float.parseFloat(diemHe1), Float.parseFloat(diemHe2), Float.parseFloat(diemHe3));
@@ -100,7 +117,6 @@ public class SubjectTeacherController {
 		
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).setDiemMH(diemService.getDiemByMaHSAndMaPC(list.get(i).getMaHS(), maPC));
-			list.get(i).getDiemMH().getDiemHe1();
 		}
 		
 		model.addAttribute("list", list);

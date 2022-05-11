@@ -16,5 +16,11 @@ public class HocSinhService {
 	public List<HocSinh> listByMaLH(String maLH) {
 		return hocSinhRepository.findByMaLH(maLH);
 	}
+	
+	public List<HocSinh> getAll() {
+		List<HocSinh> list = hocSinhRepository.findAll();
+		
+		return list;
+	}
 
 }

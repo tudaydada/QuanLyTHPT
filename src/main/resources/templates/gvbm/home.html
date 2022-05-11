@@ -27,7 +27,7 @@
     	<ul class="app-nav">
 			<!-- User Menu-->
     		<li>
-    			<a class="app-nav__item" th:href="@{#}">
+    			<a class="app-nav__item" th:href="@{/logout}">
     				<i class='bx bx-log-out bx-rotate-180'></i> 
     			</a>
     		</li>
@@ -49,7 +49,7 @@
     	<hr>
 	    <ul class="app-menu">
 	      	<li>
-		      	<a class="app-menu__item active" th:href="@{#}">
+		      	<a class="app-menu__item active" th:href="@{/gvbm/home}">
 		      		<i class='app-menu__icon bx bxs-home'></i>
 		      		<span class="app-menu__label">Trang chủ</span>
 		      	</a>
@@ -61,19 +61,13 @@
 		    	</a>
 		  	</li>
 	      	<li>
-		      	<a class="app-menu__item" th:href="@{#}">
-		      		<i class='app-menu__icon bx bx-pencil'></i>
-		      		<span class="app-menu__label">Nhập điểm</span>
-		      	</a>
-	      	</li>
-	      	<li>
 		      	<a class="app-menu__item" th:href="@{/gvbm/thongtincanhan}">
 		      		<i class='app-menu__icon bx bx-detail'></i>
 		      		<span class="app-menu__label">Thông tin cá nhân</span>
 		      	</a>
 	      	</li>
 	      	<li>
-		      	<a class="app-menu__item" th:href="@{#}">
+		      	<a class="app-menu__item" th:href="@{/logout}">
 		      		<i class='app-menu__icon bx bx-log-out'></i>
 		      		<span class="app-menu__label">Đăng xuất</span>
 		      	</a>
@@ -92,164 +86,94 @@
         		</div>
       		</div>
     	</div>
-    	<!-- <div class="row">
-      		Left
-      		<div class="col-md-12 col-lg-6">
+    	<div class="row">
+      		<!-- Left -->
+      		<div class="col-md-12 col-lg-12">
         		<div class="row">
-       				col-6
+       				<!-- col-6 -->
        				<div class="col-md-6">
         				<div class="widget-small primary coloured-icon">
-        					<i class='icon bx bxs-user-account fa-3x'></i>
+        					<i class='icon bx bxs-shopping-bags fa-3x'></i>
           					<div class="info">
-            					<h4>Tổng khách hàng</h4>
-            					<p><b>56 khách hàng</b></p>
-            					<p class="info-tong">Tổng số khách hàng được quản lý.</p>
+            					<h4>Tổng học phần đã phụ trách</h4>
+            					<p><b th:text=${tongHPPT}></b><b> học phần</b></p>
+            					<p class="info-tong">Tổng số học phần.</p>
           					</div>
         				</div>
       				</div>
-       				col-6
+       				<!-- col-6 -->
           			<div class="col-md-6">
             			<div class="widget-small info coloured-icon">
-            				<i class='icon bx bxs-data fa-3x'></i>
+            				<i class='icon bx bxs-shopping-bags fa-3x'></i>
               				<div class="info">
-                				<h4>Tổng sản phẩm</h4>
-				                <p><b>1850 sản phẩm</b></p>
-				                <p class="info-tong">Tổng số sản phẩm được quản lý.</p>
+                				<h4>Tổng học phần đang phụ trách</h4>
+				                <p><b th:text=${tongHPDangPT}></b><b> học phần</b></p>
+				                <p class="info-tong">Tổng số học phần.</p>
               				</div>
             			</div>
           			</div>
-           			col-6
+           			<!-- col-6 -->
           			<div class="col-md-6">
             			<div class="widget-small warning coloured-icon">
             				<i class='icon bx bxs-shopping-bags fa-3x'></i>
               				<div class="info">
-				                <h4>Tổng đơn hàng</h4>
-				                <p><b>247 đơn hàng</b></p>
-				                <p class="info-tong">Tổng số hóa đơn bán hàng trong tháng.</p>
+				                <h4>Tổng môn dạy</h4>
+				                <p><b th:text=${tongMH}></b><b> môn học</b></p>
+				                <p class="info-tong">Tổng môn học.</p>
               				</div>
             			</div>
           			</div>
-           			col-6
+           			<!-- col-6 -->
           			<div class="col-md-6">
             			<div class="widget-small danger coloured-icon">
-            				<i class='icon bx bxs-error-alt fa-3x'></i>
+            				<i class='icon bx bxs-shopping-bags fa-3x'></i>
               				<div class="info">
-				                <h4>Sắp hết hàng</h4>
-				                <p><b>4 sản phẩm</b></p>
-				                <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
+				                <h4>Tổng học sinh đang phụ trách</h4>
+				                <p><b>100</b><b> học sinh</b></p>
+				                <p class="info-tong">Tổng học sinh.</p>
 				            </div>
             			</div>
           			</div>
-           			col-12
-           			<div class="col-md-12">
-            			<div class="tile">
-                			<h3 class="tile-title">Tình trạng đơn hàng</h3>
-              				<div>
-                				<table class="table table-bordered">
-                  					<thead>
-                    					<tr>
-						                      <th>ID đơn hàng</th>
-						                      <th>Tên khách hàng</th>
-						                      <th>Tổng tiền</th>
-						                      <th>Trạng thái</th>
-                    					</tr>
-                  					</thead>
-                  					<tbody>
-                    					<tr>
-						                      <td>AL3947</td>
-						                      <td>Phạm Thị Ngọc</td>
-						                      <td>
-						                        19.770.000 đ
-						                      </td>
-						                      <td><span class="badge bg-info">Chờ xử lý</span></td>
-                    					</tr>
-                    					<tr>
-						                      <td>ER3835</td>
-						                      <td>Nguyễn Thị Mỹ Yến</td>
-						                      <td>
-						                        16.770.000 đ	
-						                      </td>
-						                      <td><span class="badge bg-warning">Đang vận chuyển</span></td>
-                    					</tr>
-                    					<tr>
-						                      <td>MD0837</td>
-						                      <td>Triệu Thanh Phú</td>
-						                      <td>
-						                        9.400.000 đ	
-						                      </td>
-						                      <td><span class="badge bg-success">Đã hoàn thành</span></td>
-                    					</tr>
-                    					<tr>
-						                      <td>MT9835</td>
-						                      <td>Đặng Hoàng Phúc	</td>
-						                      <td>
-						                        40.650.000 đ	
-						                      </td>
-						                      <td><span class="badge bg-danger">Đã hủy	</span></td>
-                    					</tr>
-                  					</tbody>
-                				</table>
-              				</div>
-            			</div>
-           			</div>
-             		col-12
+             		<!-- col-12 -->
             		<div class="col-md-12">
                 		<div class="tile">
-                  			<h3 class="tile-title">Khách hàng mới</h3>
+                  			<h3 class="tile-title">Điểm nhập gần đây</h3>
                 			<div>
                   				<table class="table table-hover">
                     				<thead>
                       					<tr>
-					                        <th>ID</th>
-					                        <th>Tên khách hàng</th>
-					                        <th>Ngày sinh</th>
-					                        <th>Số điện thoại</th>
+                      						<td width="10"><input type="checkbox" name="check1" value="1"></td>
+					                        <th>Mã học sinh</th>
+					                        <th>Điểm miệng</th>
+					                        <th>Điểm thi giữa kỳ</th>
+					                        <th>Điểm thi cuối kỳ</th>
+					                        <th>Sửa</th>
                       					</tr>
                     				</thead>
-                    				<tbody>
-                      					<tr>
-					                        <td>#183</td>
-					                        <td>Hột vịt muối</td>
-					                        <td>21/7/1992</td>
-					                        <td><span class="tag tag-success">0921387221</span></td>
-                      					</tr>
-                      					<tr>
-					                        <td>#219</td>
-					                        <td>Bánh tráng trộn</td>
-					                        <td>30/4/1975</td>
-					                        <td><span class="tag tag-warning">0912376352</span></td>
-                      					</tr>
-                    				</tbody>
+                    				<tbody th:if="${list != null && !list.empty}">
+		                            	<div th:each="diem: ${list}">
+			                                <tr th:object="${diem}">
+			                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+			                                    <td th:text=*{maHS}></td>
+			                                    <td th:text=*{diemHe1}></td>
+			                                    <td th:text=*{diemHe2}></td>
+			                                    <td th:text=*{diemHe3}></td>
+			                                    <td>
+			                                    	<button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal" th:attr="data-target='#'">
+								                      	<i class="fas fa-edit"></i>
+								                    </button>
+			                                    </td>
+			                                </tr>
+		                                </div>
+		                            </tbody>
                   				</table>
                 			</div>
                 		</div>
             		</div>
         		</div>
       		</div>
-      		END left
-      		Right
-      		<div class="col-md-12 col-lg-6">
-        		<div class="row">
-          			<div class="col-md-12">
-            			<div class="tile">
-              				<h3 class="tile-title">Dữ liệu 6 tháng đầu vào</h3>
-              				<div class="embed-responsive embed-responsive-16by9">
-                				<canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
-              				</div>
-            			</div>
-          			</div>
-          			<div class="col-md-12">
-            			<div class="tile">
-              				<h3 class="tile-title">Thống kê 6 tháng doanh thu</h3>
-              				<div class="embed-responsive embed-responsive-16by9">
-                				<canvas class="embed-responsive-item" id="barChartDemo"></canvas>
-              				</div>
-            			</div>
-          			</div>
-        		</div>
-      		</div>
-      		END right
-    	</div> -->
+      		<!-- END left -->
+    	</div>
 
     	<div class="text-center" style="font-size: 13px">
       		<p><b>

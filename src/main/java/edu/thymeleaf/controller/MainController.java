@@ -16,6 +16,10 @@ import edu.thymeleaf.service.GiaoVienService;
 public class MainController {
 	@Autowired
 	private GiaoVienService giaoVienService;
+	@Autowired
+	private SubjectTeacherController subjectTeacherController;
+	@Autowired
+	private AdminController adminController;
 	
 	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
 	public String index(Model model) {
@@ -36,11 +40,11 @@ public class MainController {
 			model.addAttribute("message", "Thông tin đăng nhập không chính xác!");
 			
 			if ("".equalsIgnoreCase(giaoVien.getRole())) {	
-				return "gvbm/home";
+				return subjectTeacherController.home(model, session);
 			} else if ("".equalsIgnoreCase(giaoVien.getRole())) {
 				return "gvcn/home";
 			} else {
-				return "admin/home";
+				return adminController.home(model, session);
 			}	
 		} else {
 			model.addAttribute("message", "Thông tin đăng nhập không chính xác!");
@@ -48,6 +52,16 @@ public class MainController {
 			return "index";
 		}
 
+	}
+	
+	@RequestMapping(value = { "/logout" })
+	public String logout(Model model,
+			HttpSession session) {
+		session.removeAttribute("userLogin");
+		
+		model.addAttribute("giaoVien", new GiaoVien());
+		
+		return "index";
 	}
 
 }
